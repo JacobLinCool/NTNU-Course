@@ -1,7 +1,7 @@
 import type { RawCourseMeta, MetaQueryParam, CourseMeta, CourseTime, CourseLocation } from "./types";
 import fetch from "node-fetch";
 import { GeneralCoreType, DepartmentCode } from "./types";
-import { YEAR, TERM } from "./constants";
+import { YEAR, TERM, SERVER } from "./constants";
 
 export async function get_meta_list(raw_query: MetaQueryParam): Promise<CourseMeta[]> {
     const query: Required<MetaQueryParam> = Object.assign(
@@ -22,7 +22,7 @@ export async function get_meta_list(raw_query: MetaQueryParam): Promise<CourseMe
         raw_query,
     );
 
-    const target = `https://courseap2.itc.ntnu.edu.tw/acadmOpenCourse/CofopdlCtrl?${[
+    const target = `${SERVER}/acadmOpenCourse/CofopdlCtrl?${[
         "_dc=" + Date.now(),
         "acadmYear=" + query.year,
         "acadmTerm=" + query.term,
@@ -51,7 +51,7 @@ export async function get_meta_list(raw_query: MetaQueryParam): Promise<CourseMe
         headers: {
             Accept: "*/*",
             "Accept-Language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-            Referer: "https://courseap2.itc.ntnu.edu.tw/acadmOpenCourse/CofopdlCtrl?language=chinese",
+            Referer: `${SERVER}/acadmOpenCourse/CofopdlCtrl?language=chinese`,
             "User-Agent": "NTNU-Course",
         },
     });
