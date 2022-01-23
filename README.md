@@ -52,12 +52,12 @@ In addition to the metadata, the full information includes other information suc
 
 To query the full information of a course, you can pass the metadata of the course or at least satisfy the following parameters:
 
-- code: the course code
-- group: the course group
-- department: the department that provides the course
-- form_s: actually I don't know what this is
-- classes: actually I don't know what this is
-- dept_group: actually I don't know what this is
+-   code: the course code
+-   group: the course group
+-   department: the department that provides the course
+-   form_s: actually I don't know what this is
+-   classes: actually I don't know what this is
+-   dept_group: actually I don't know what this is
 
 ```javascript
 const info = await query.info(meta[0]);
