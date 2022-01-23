@@ -7,10 +7,83 @@
 <a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
   <h2>Installation</h2>
 </a>
-<pre><code class="language-bash"><span class="hl-0">npm install ntnu-course</span>
+
+<a href="#npm" id="npm" style="color: inherit; text-decoration: none;">
+  <h3>NPM</h3>
+</a>
+<pre><code class="language-bash"><span class="hl-0">npm i ntnu-course</span>
+</code></pre>
+
+<a href="#yarn" id="yarn" style="color: inherit; text-decoration: none;">
+  <h3>YARN</h3>
+</a>
+<pre><code class="language-bash"><span class="hl-0">yarn add ntnu-course</span>
+</code></pre>
+
+<a href="#pnpm" id="pnpm" style="color: inherit; text-decoration: none;">
+  <h3>PNPM</h3>
+</a>
+<pre><code class="language-bash"><span class="hl-0">pnpm i ntnu-course</span>
 </code></pre>
 
 <a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
   <h2>Usage</h2>
 </a>
-</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-enum"><a href="enums/DepartmentCode.html" class="tsd-kind-icon">Department<wbr/>Code</a></li><li class="tsd-kind-enum"><a href="enums/GeneralCoreType.html" class="tsd-kind-icon">General<wbr/>Core<wbr/>Type</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseGradingPolicy.html" class="tsd-kind-icon">Course<wbr/>Grading<wbr/>Policy</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseInfo.html" class="tsd-kind-icon">Course<wbr/>Info</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseLecturingMethodology.html" class="tsd-kind-icon">Course<wbr/>Lecturing<wbr/>Methodology</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseLocation.html" class="tsd-kind-icon">Course<wbr/>Location</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseMeta.html" class="tsd-kind-icon">Course<wbr/>Meta</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseQuota.html" class="tsd-kind-icon">Course<wbr/>Quota</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseTime.html" class="tsd-kind-icon">Course<wbr/>Time</a></li><li class="tsd-kind-interface"><a href="interfaces/MetaQueryParam.html" class="tsd-kind-icon">Meta<wbr/>Query<wbr/>Param</a></li><li class="tsd-kind-interface"><a href="interfaces/RawCourseMeta.html" class="tsd-kind-icon">Raw<wbr/>Course<wbr/>Meta</a></li><li class="tsd-kind-type-alias"><a href="modules.html#YesNo" class="tsd-kind-icon">Yes<wbr/>No</a></li><li class="tsd-kind-function"><a href="modules.html#get_meta_list" class="tsd-kind-icon">get_<wbr/>meta_<wbr/>list</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
+<p>This package supports both <code>cjs</code> and <code>esm</code> format.</p>
+<pre><code class="language-javascript"><span class="hl-1">// cjs</span><br/><span class="hl-2">const</span><span class="hl-0"> </span><span class="hl-3">query</span><span class="hl-0"> = </span><span class="hl-4">require</span><span class="hl-0">(</span><span class="hl-5">&quot;ntnu-course&quot;</span><span class="hl-0">);</span><br/><br/><span class="hl-1">// esm</span><br/><span class="hl-6">import</span><span class="hl-0"> </span><span class="hl-7">query</span><span class="hl-0"> </span><span class="hl-6">from</span><span class="hl-0"> </span><span class="hl-5">&quot;ntnu-course&quot;</span><span class="hl-0">;</span>
+</code></pre>
+
+<a href="#query-course-metadata" id="query-course-metadata" style="color: inherit; text-decoration: none;">
+  <h3>Query Course Metadata</h3>
+</a>
+<p>Returns a list of course meradata that matches the query.</p>
+<p>For example, to query all courses that are offered by CSIE:</p>
+<pre><code class="language-javascript"><span class="hl-2">const</span><span class="hl-0"> </span><span class="hl-3">meta</span><span class="hl-0"> = </span><span class="hl-6">await</span><span class="hl-0"> </span><span class="hl-7">query</span><span class="hl-0">.</span><span class="hl-4">meta</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-7">department:</span><span class="hl-0"> </span><span class="hl-5">&quot;資工系&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">});</span>
+</code></pre>
+
+<a href="#query-course-full-information" id="query-course-full-information" style="color: inherit; text-decoration: none;">
+  <h3>Query Course Full Information</h3>
+</a>
+<p>In addition to the metadata, the full information includes other information such as grading policy, course description, etc.</p>
+<p>To query the full information of a course, you can pass the metadata of the course or at least satisfy the following parameters:</p>
+<ul>
+<li>code: the course code</li>
+<li>group: the course group</li>
+<li>department: the department that provides the course</li>
+<li>form_s: actually I don&#39;t know what this is</li>
+<li>classes: actually I don&#39;t know what this is</li>
+<li>dept_group: actually I don&#39;t know what this is</li>
+</ul>
+<pre><code class="language-javascript"><span class="hl-2">const</span><span class="hl-0"> </span><span class="hl-3">info</span><span class="hl-0"> = </span><span class="hl-6">await</span><span class="hl-0"> </span><span class="hl-7">query</span><span class="hl-0">.</span><span class="hl-4">info</span><span class="hl-0">(</span><span class="hl-7">meta</span><span class="hl-0">[</span><span class="hl-8">0</span><span class="hl-0">]);</span>
+</code></pre>
+
+<a href="#turn-off-cache" id="turn-off-cache" style="color: inherit; text-decoration: none;">
+  <h3>Turn Off Cache</h3>
+</a>
+<p>The default behavior is to cache the result of the query in the memory.</p>
+<p>You can turn off the cache by setting <code>cache</code> to <code>false</code>:</p>
+<pre><code class="language-javascript"><span class="hl-7">query</span><span class="hl-0">.</span><span class="hl-7">cache</span><span class="hl-0"> = </span><span class="hl-2">false</span><span class="hl-0">;</span>
+</code></pre>
+<p>And if you want to clear the previous cache, you can use <code>clear</code>:</p>
+<pre><code class="language-javascript"><span class="hl-7">query</span><span class="hl-0">.</span><span class="hl-4">clear</span><span class="hl-0">();</span>
+</code></pre>
+
+<a href="#links" id="links" style="color: inherit; text-decoration: none;">
+  <h2>Links</h2>
+</a>
+
+<a href="#github-repository" id="github-repository" style="color: inherit; text-decoration: none;">
+  <h3>GitHub Repository</h3>
+</a>
+<p><a href="https://github.com/JacobLinCool/NTNU-Course">https://github.com/JacobLinCool/NTNU-Course</a></p>
+
+<a href="#npm-package" id="npm-package" style="color: inherit; text-decoration: none;">
+  <h3>NPM Package</h3>
+</a>
+<p><a href="https://www.npmjs.com/package/ntnu-course">https://www.npmjs.com/package/ntnu-course</a></p>
+
+<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+  <h3>Documentation</h3>
+</a>
+<p><a href="https://jacoblincool.github.io/NTNU-Course/">https://jacoblincool.github.io/NTNU-Course/</a></p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-reference"><a href="modules.html#default" class="tsd-kind-icon">default</a></li><li class="tsd-kind-enum"><a href="enums/DepartmentCode.html" class="tsd-kind-icon">Department<wbr/>Code</a></li><li class="tsd-kind-enum"><a href="enums/GeneralCoreType.html" class="tsd-kind-icon">General<wbr/>Core<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/Query.html" class="tsd-kind-icon">Query</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseGradingPolicy.html" class="tsd-kind-icon">Course<wbr/>Grading<wbr/>Policy</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseInfo.html" class="tsd-kind-icon">Course<wbr/>Info</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseLecturingMethodology.html" class="tsd-kind-icon">Course<wbr/>Lecturing<wbr/>Methodology</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseLocation.html" class="tsd-kind-icon">Course<wbr/>Location</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseMeta.html" class="tsd-kind-icon">Course<wbr/>Meta</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseQuota.html" class="tsd-kind-icon">Course<wbr/>Quota</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseTime.html" class="tsd-kind-icon">Course<wbr/>Time</a></li><li class="tsd-kind-interface"><a href="interfaces/MetaQueryParam.html" class="tsd-kind-icon">Meta<wbr/>Query<wbr/>Param</a></li><li class="tsd-kind-interface"><a href="interfaces/RawCourseMeta.html" class="tsd-kind-icon">Raw<wbr/>Course<wbr/>Meta</a></li><li class="tsd-kind-type-alias"><a href="modules.html#YesNo" class="tsd-kind-icon">Yes<wbr/>No</a></li><li class="tsd-kind-variable"><a href="modules.html#query" class="tsd-kind-icon">query</a></li><li class="tsd-kind-function"><a href="modules.html#get_meta_list" class="tsd-kind-icon">get_<wbr/>meta_<wbr/>list</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
