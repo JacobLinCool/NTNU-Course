@@ -9,7 +9,7 @@
         "outDir": "./lib",
         "declaration": true,
         "resolveJsonModule": true,
-        "removeComments": true,
+        "removeComments": false,
         "noEmitOnError": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
