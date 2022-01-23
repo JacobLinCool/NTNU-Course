@@ -3,6 +3,11 @@ import fetch from "node-fetch";
 import { GeneralCoreType, DepartmentCode } from "./types";
 import { YEAR, TERM, SERVER } from "./constants";
 
+/**
+ * 依條件查詢課程 Metadata
+ * @param raw_query 課程 Metadata 查詢參數
+ * @returns 課程 Metadata
+ */
 export async function get_meta_list(raw_query: MetaQueryParam): Promise<CourseMeta[]> {
     const query: Required<MetaQueryParam> = Object.assign(
         {
@@ -95,6 +100,11 @@ export async function get_meta_list(raw_query: MetaQueryParam): Promise<CourseMe
     });
 }
 
+/**
+ * 從原始課程時間地點資料中分別解析出時間和地點，可能有多筆
+ * @param raw 課程時間地點資料原始資料，例如：`一 3-4 本部 某教室`
+ * @returns 課程時間地點陣列
+ */
 function parse_schedule(raw: string): (CourseTime & CourseLocation)[] {
     const time_locations = raw.split(",").map((x) => x.trim());
 
@@ -131,6 +141,11 @@ function parse_schedule(raw: string): (CourseTime & CourseLocation)[] {
     return schedule;
 }
 
+/**
+ * 從原始課程名稱中解析出學分學程
+ * @param raw 課程原始名稱，包含 [ 學分學程： ... ]
+ * @returns 學分學程陣列
+ */
 function parse_programs(raw: string): string[] {
     const content = raw.match(/\[ ?學分學程：([^\]]+) ?]/);
     return content
@@ -141,6 +156,11 @@ function parse_programs(raw: string): string[] {
         : [];
 }
 
+/**
+ * 把英文字母節數轉成數字 (A -> 11, B -> 12, ...)
+ * @param code 節數代碼 0 ~ 10 | A ~ D
+ * @returns 0 ~ 14
+ */
 function transform_course_time_code(code: string): number {
     if (code.match(/^[A-D]$/)) {
         return parseInt(code, 16);
