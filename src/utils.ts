@@ -17,6 +17,6 @@ export async function retry<T>(fn: () => T | Promise<T>, max = 3, cooldown = 0):
     throw err;
 }
 
-export function obj_to_hash(obj: any): string {
+export function obj_to_hash(obj: unknown): string {
     return crypto.createHash("md5").update(JSON.stringify(obj)).digest("hex");
 }
