@@ -1,5 +1,6 @@
-import type { CourseMeta, MetaQueryParam } from "./types";
+import type { CourseInfo, CourseMeta, MetaQueryParam } from "./types";
 import { get_meta_list, normalize_meta_query } from "./meta";
+import { get_info } from "./info";
 import { obj_to_hash, retry } from "./utils";
 
 /**
@@ -11,7 +12,7 @@ export class Query {
      */
     private _cache = {
         meta: new Map<string, CourseMeta[]>(),
-        info: new Map<string, any>(),
+        info: new Map<string, CourseInfo>(),
     };
 
     /**
@@ -45,6 +46,23 @@ export class Query {
         const meta = await retry(() => get_meta_list(query), this.retry, this.cooldown);
         this._cache.meta.set(hash, meta);
         return meta;
+    }
+
+    /**
+     * 依 Metadata 查詢完整課程資訊
+     * @param meta 課程 Metadata
+     * @returns 課程資訊
+     */
+    public async info(meta: CourseMeta): Promise<CourseInfo> {
+        const hash = obj_to_hash(meta);
+
+        if (this.cache && this._cache.info.has(hash)) {
+            return this._cache.info.get(hash) as CourseInfo;
+        }
+
+        const info = await retry(() => get_info(meta), this.retry, this.cooldown);
+        this._cache.info.set(hash, info);
+        return info;
     }
 
     /**
