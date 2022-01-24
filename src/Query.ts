@@ -1,5 +1,5 @@
 import type { CourseMeta, MetaQueryParam } from "./types";
-import { get_meta_list } from "./meta";
+import { get_meta_list, normalize_meta_query } from "./meta";
 import { obj_to_hash, retry } from "./utils";
 
 /**
@@ -35,13 +35,14 @@ export class Query {
      * @returns 課程 Metadata
      */
     public async meta(raw_query: MetaQueryParam): Promise<CourseMeta[]> {
-        const hash = obj_to_hash(raw_query);
+        const query = normalize_meta_query(raw_query);
+        const hash = obj_to_hash(query);
 
         if (this.cache && this._cache.meta.has(hash)) {
             return this._cache.meta.get(hash) as CourseMeta[];
         }
 
-        const meta = await retry(() => get_meta_list(raw_query), this.retry, this.cooldown);
+        const meta = await retry(() => get_meta_list(query), this.retry, this.cooldown);
         this._cache.meta.set(hash, meta);
         return meta;
     }

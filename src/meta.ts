@@ -5,28 +5,10 @@ import { YEAR, TERM, SERVER } from "./constants";
 
 /**
  * 依條件查詢課程 Metadata
- * @param raw_query 課程 Metadata 查詢參數
+ * @param query 課程 Metadata 查詢參數
  * @returns 課程 Metadata
  */
-export async function get_meta_list(raw_query: MetaQueryParam): Promise<CourseMeta[]> {
-    const query: Required<MetaQueryParam> = Object.assign(
-        {
-            year: YEAR,
-            term: TERM,
-            name: "",
-            teacher: "",
-            department: "",
-            class: "",
-            code: "",
-            serial: "",
-            english: "N",
-            digital: "N",
-            adsl: "N",
-            general_core: "",
-        } as Required<MetaQueryParam>,
-        raw_query,
-    );
-
+export async function get_meta_list(query: Required<MetaQueryParam>): Promise<CourseMeta[]> {
     const target = `${SERVER}/acadmOpenCourse/CofopdlCtrl?${[
         "_dc=" + Date.now(),
         "acadmYear=" + query.year,
@@ -42,7 +24,7 @@ export async function get_meta_list(raw_query: MetaQueryParam): Promise<CourseMe
         "classCode=" + query.class,
         "kind=" + (query.general_core ? "3" : ""),
         "generalCore=" + GeneralCoreType[query.general_core],
-        "teacher=" + encodeURIComponent(encodeURIComponent(query.teacher)),
+        "teacher=" + query.teacher,
         "serial_number=" + query.serial,
         "course_code=" + query.code,
         "language=chinese",
@@ -77,7 +59,7 @@ export async function get_meta_list(raw_query: MetaQueryParam): Promise<CourseMe
                     .split(" ")
                     .map((x) => x.trim())
                     .filter((x) => x.length),
-                department: raw.dept_code.trim(),
+                department: raw.dept_code.trim() as keyof typeof DepartmentCode,
                 code: raw.course_code.trim(),
                 credit: parseInt(raw.credit),
                 serial: parseInt(raw.serial_no),
@@ -88,6 +70,8 @@ export async function get_meta_list(raw_query: MetaQueryParam): Promise<CourseMe
                 },
                 schedule: parse_schedule(raw.time_inf),
                 programs: parse_programs((raw.chn_name.split("</br>")[1] || "").trim()),
+                comment: raw.comment.trim(),
+                restrict: raw.restrict.trim(),
                 form_s: raw.form_s.trim(),
                 classes: raw.classes.trim(),
                 dept_group: raw.dept_group.trim(),
@@ -98,6 +82,31 @@ export async function get_meta_list(raw_query: MetaQueryParam): Promise<CourseMe
 
         return meta;
     });
+}
+
+export function normalize_meta_query(raw_query: MetaQueryParam): Required<MetaQueryParam> {
+    const query: Required<MetaQueryParam> = Object.assign(
+        {
+            year: YEAR,
+            term: TERM,
+            name: "",
+            teacher: "",
+            department: "",
+            class: "",
+            code: "",
+            serial: "",
+            english: "N",
+            digital: "N",
+            adsl: "N",
+            general_core: "",
+        } as Required<MetaQueryParam>,
+        raw_query,
+    );
+
+    query.teacher = encodeURIComponent(encodeURIComponent(query.teacher));
+    query.serial = query.serial ? (typeof query.serial === "string" ? query.serial : query.serial.toString()).padStart(4, "0") : "";
+
+    return query;
 }
 
 /**
