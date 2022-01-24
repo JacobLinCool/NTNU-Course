@@ -1,6 +1,6 @@
 {
     "name": "ntnu-course",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Query Course Information of National Taiwan Normal University.",
     "main": "lib/index.js",
     "scripts": {
@@ -44,5 +44,13 @@
         "cheerio": "^1.0.0-rc.10",
         "node-fetch": "2.6.7",
         "turndown": "^7.1.1"
+    },
+    "homepage": "https://jacoblincool.github.io/NTNU-Course/",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JacobLinCool/NTNU-Course.git"
+    },
+    "bugs": {
+        "url": "https://github.com/JacobLinCool/NTNU-Course/issues"
     }
 }
