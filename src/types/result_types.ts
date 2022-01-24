@@ -1,3 +1,5 @@
+import type { GeneralCoreType, DepartmentCode } from "./common_types";
+
 export interface CourseQuota {
     /**
      * 一般名額
@@ -63,7 +65,7 @@ export interface CourseMeta {
     /**
      * 開課系所
      */
-    department: string;
+    department: keyof typeof DepartmentCode;
 
     /**
      * 學分數
@@ -101,6 +103,16 @@ export interface CourseMeta {
     programs: string[];
 
     /**
+     * 備註
+     */
+    comment: string;
+
+    /**
+     * 修課限制
+     */
+    restrict: string;
+
+    /**
      * 不知道是啥的東西，進階查詢用
      */
     form_s: string;
@@ -132,7 +144,7 @@ export interface CourseGradingPolicy {
     type: string;
 
     /**
-     * 評分比重
+     * 評分比重 0 ~ 100
      */
     weight: number;
 
@@ -169,4 +181,14 @@ export interface CourseInfo extends CourseMeta {
      * 評分方法
      */
     grading: CourseGradingPolicy[];
+
+    /**
+     * 先修課程
+     */
+    prerequisite: string;
+
+    /**
+     * 通識領域
+     */
+    general_core: (keyof typeof GeneralCoreType)[];
 }
