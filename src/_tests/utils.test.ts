@@ -4,7 +4,7 @@ describe("utils", () => {
     it("should sleep", async () => {
         const time = Date.now();
         await sleep(100);
-        expect(Date.now() - time).toBeGreaterThan(99);
+        expect(Date.now() - time).toBeGreaterThan(95);
     });
 
     it("should retry", async () => {
