@@ -85,3 +85,9 @@ query.clear();
 ### Documentation
 
 <https://jacoblincool.github.io/NTNU-Course/>
+
+### NTNU Course Crawler
+
+Related project.
+
+<https://github.com/JacobLinCool/NTNU-Course-Crawler>
