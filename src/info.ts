@@ -33,13 +33,28 @@ export async function get_info(meta: CourseMeta): Promise<CourseInfo> {
             return { ...acc, [text]: elm };
         }, {}) as { [key: string]: Element };
 
-    const hours = get_hours($(anchors["每週授課時數"]).next());
-    const description = $(anchors["課程簡介"]).next().text().trim();
-    const goals = get_goals($(anchors["課程目標"]).parent());
-    const syllabus = get_syllabus($(anchors["教學進度與主題"]).parent().next().children().first());
-    const methodologies = get_methodologies($(anchors["教學方法"]).parent());
-    const grading = get_grading($(anchors["評量方法"]).parent());
-    const prerequisite = anchors["先修課程"] ? $(anchors["先修課程"]).next().text().trim() : "";
+    const hours = get_hours($(anchors["每週授課時數"] || anchors["Lecturing hours"]).next());
+    const description = $(anchors["課程簡介"] || anchors["Course Description"])
+        .next()
+        .text()
+        .trim();
+    const goals = get_goals($(anchors["課程目標"] || anchors["Curriculum Goals"]).parent());
+    const syllabus = get_syllabus(
+        $(anchors["教學進度與主題"] || anchors["Schedule"])
+            .parent()
+            .next()
+            .children()
+            .first(),
+    );
+    const methodologies = get_methodologies($(anchors["教學方法"] || anchors["Lecturing Methodologies"]).parent());
+    const grading = get_grading($(anchors["評量方法"] || anchors["Grading assessment"]).parent());
+    const prerequisite =
+        anchors["先修課程"] || anchors["Restrict Course"]
+            ? $(anchors["先修課程"] || anchors["Restrict Course"])
+                  .next()
+                  .text()
+                  .trim()
+            : "";
     const general_core = anchors["領域類別"] ? get_general_core($(anchors["領域類別"]).next()) : [];
 
     return { ...meta, hours, description, goals, syllabus, methodologies, grading, prerequisite, general_core };
@@ -78,7 +93,7 @@ function get_syllabus(elm: Cheerio<Element>): string {
 function get_methodologies(elm: Cheerio<Element>): CourseLecturingMethodology[] {
     const methodologies: CourseLecturingMethodology[] = [];
     let current = elm.next().next();
-    while (current.text().trim() !== "評量方法") {
+    while (current.text().trim() !== "評量方法" && current.text().trim() !== "Grading assessment") {
         const children = current.children();
         const type = children.first().text().trim();
         const note = children.last().text().trim();
@@ -93,7 +108,7 @@ function get_methodologies(elm: Cheerio<Element>): CourseLecturingMethodology[] 
 function get_grading(elm: Cheerio<Element>): CourseGradingPolicy[] {
     const grading: CourseGradingPolicy[] = [];
     let current = elm.next().next();
-    while (!current.text().includes("參考書目")) {
+    while (!current.text().includes("參考書目") && !current.text().includes("Required and Recommended Texts/Readings with References")) {
         const children = current.children();
         const type = children.first().text().trim();
         const weight = parseInt(
