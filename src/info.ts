@@ -82,6 +82,9 @@ function get_goals(elm: Cheerio<Element>): string[] {
             .replace(/^\d\.　/, "");
         goals.push(text);
         elm = elm.next();
+        if (elm.length === 0) {
+            break;
+        }
     }
     return goals;
 }
@@ -101,6 +104,9 @@ function get_methodologies(elm: Cheerio<Element>): CourseLecturingMethodology[] 
         methodologies.push({ type, note });
 
         current = current.next();
+        if (current.length === 0) {
+            break;
+        }
     }
     return methodologies;
 }
@@ -123,6 +129,9 @@ function get_grading(elm: Cheerio<Element>): CourseGradingPolicy[] {
         grading.push({ type, weight, note });
 
         current = current.next();
+        if (current.length === 0) {
+            break;
+        }
     }
     return grading;
 }
