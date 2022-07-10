@@ -1,6 +1,6 @@
 {
     "name": "ntnu-course",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Query Course Information of National Taiwan Normal University.",
     "main": "lib/index.js",
     "scripts": {

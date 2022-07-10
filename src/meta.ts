@@ -34,8 +34,6 @@ export async function get_meta_list(query: Required<MetaQueryParam>): Promise<Co
         "page=1",
     ].join("&")}`;
 
-    console.log(target);
-
     const res = await fetch(target, {
         headers: {
             Accept: "*/*",
