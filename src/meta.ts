@@ -34,6 +34,8 @@ export async function get_meta_list(query: Required<MetaQueryParam>): Promise<Co
         "page=1",
     ].join("&")}`;
 
+    console.log(target);
+
     const res = await fetch(target, {
         headers: {
             Accept: "*/*",
@@ -61,6 +63,8 @@ export async function get_meta_list(query: Required<MetaQueryParam>): Promise<Co
                     .filter((x) => x.length),
                 department: raw.dept_code.trim() as keyof typeof DepartmentCode,
                 code: raw.course_code.trim(),
+                type: raw.option_code,
+                grade: parseInt(raw.form_s),
                 credit: parseInt(raw.credit),
                 serial: parseInt(raw.serial_no),
                 group: raw.course_group.trim(),

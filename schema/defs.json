@@ -446,6 +446,10 @@
                     },
                     "type": "array"
                 },
+                "grade": {
+                    "description": "年級",
+                    "type": "number"
+                },
                 "grading": {
                     "description": "評分方法",
                     "items": {
@@ -541,6 +545,10 @@
                     "description": "開課學期",
                     "type": "number"
                 },
+                "type": {
+                    "description": "必選修",
+                    "type": "string"
+                },
                 "year": {
                     "description": "開課學年度",
                     "type": "number"
@@ -557,6 +565,7 @@
                 "form_s",
                 "general_core",
                 "goals",
+                "grade",
                 "grading",
                 "group",
                 "hours",
@@ -571,6 +580,7 @@
                 "syllabus",
                 "teachers",
                 "term",
+                "type",
                 "year"
             ],
             "type": "object"
@@ -990,6 +1000,10 @@
                     "description": "不知道是啥的東西，進階查詢用",
                     "type": "string"
                 },
+                "grade": {
+                    "description": "年級",
+                    "type": "number"
+                },
                 "group": {
                     "description": "課程組別",
                     "type": "string"
@@ -1059,6 +1073,10 @@
                     "description": "開課學期",
                     "type": "number"
                 },
+                "type": {
+                    "description": "必選修",
+                    "type": "string"
+                },
                 "year": {
                     "description": "開課學年度",
                     "type": "number"
@@ -1072,6 +1090,8 @@
                 "department",
                 "credit",
                 "code",
+                "type",
+                "grade",
                 "serial",
                 "group",
                 "quota",

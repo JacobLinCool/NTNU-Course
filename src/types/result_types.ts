@@ -78,6 +78,16 @@ export interface CourseMeta {
     code: string;
 
     /**
+     * 必選修
+     */
+    type: string;
+
+    /**
+     * 年級
+     */
+    grade: number;
+
+    /**
      * 開課序號
      */
     serial: number;
