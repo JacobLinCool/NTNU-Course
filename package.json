@@ -36,7 +36,7 @@
         "prettier": "2.5.1",
         "ts-jest": "27.1.3",
         "ts-json-schema-generator": "0.97.0",
-        "tsup": "5.11.11",
+        "tsup": "5.12.9",
         "typedoc": "0.23.7",
         "typescript": "4.7.4"
     },
